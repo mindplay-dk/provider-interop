@@ -1,0 +1,14 @@
+{
+    "name": "mindplay/provider-interop",
+    "type": "library",
+    "description": "Promoting container-interoperability through integration of service-providers",
+    "license": "MIT",
+    "require": {
+        "php": ">= 5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Interop\\Provider\\": "src/"
+        }
+    }
+}
