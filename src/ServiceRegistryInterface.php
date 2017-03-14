@@ -20,12 +20,4 @@ interface ServiceRegistryInterface
      * @param callable $resolver A function that resolves and returns the value/component
      */
     public function register($id, callable $resolver);
-
-    /**
-     * Registers an entry by directly injecting the value/component.
-     *
-     * @param string $id    Identifier of the entry to inject
-     * @param mixed  $value entry value/component to inject
-     */
-    public function set($id, $value);
 }

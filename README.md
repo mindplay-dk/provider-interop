@@ -99,7 +99,7 @@ class MyContainer implements ContainerInterface, ServiceProviderInterface
 {
     public function registerWith(ServiceRegistryInterface $registry)
     {
-        foreach ($this->listIdentifiers()) {
+        foreach ($this->listIdentifiers() as $id) {
             $registry->register($id, function () use ($id) {
                 return $this->get($id);
             });
@@ -113,19 +113,14 @@ class MyContainer implements ContainerInterface, ServiceProviderInterface
 Note that the implementation of `listIdentifiers()` is omitted from this example, as the implementation is
 going to depend on internal implementation details of the given container.
 
-As an optimization, some implementations might iterate over a second map of raw entries (which do not require
-a function-call) and export those directly using the `set()` method.
+Implementation of the `ServiceRegistryInterface` facet in a container is dependent on the nature of that container.
 
-To implement the `ServiceRegistryInterface` facet in a container, a mutable container-implementation must
-provide a means of injecting entries into it's internal service-registry, e.g. implementing the `register()`
-and `set()` methods, both of which should be trivial to implement in any container. The `$resolver` function
-provided to a service-registry via the `register()` method should be stored internally in the container, and
-may be invoked (with zero arguments) to resolve the entry, e.g. during a call to `ContainerInterface::get()`.
+A mutable container-implementation must provide a means of injecting entries into it's internal service-registry,
+e.g. implementing the `register()` method, which should be trivial to implement in any container. The `$resolver`
+function provided to a service-registry via the `register()` method should be stored internally in the container,
+and may be invoked (with zero arguments) to resolve the entry, e.g. during a call to `ContainerInterface::get()`.
 
 In practice, many container-implementations use a two-stage life-cycle, in which a container-factory or
-"builder" is created prior to generating actual container instances - in these container-implementations,
+"builder" is created prior to generating immutable container instances - in these container-implementations,
 the target container-factory/builder must implement the `ServiceRegistryInterface`, and the source container
 itself would implement the `ServiceProviderInterface`.
-
-An example will not be shown here, as the implementation is entirely dependent on the implementation details
-of the container in question.
