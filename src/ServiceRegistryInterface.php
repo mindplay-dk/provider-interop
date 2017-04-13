@@ -3,21 +3,24 @@
 namespace Interop\Provider;
 
 /**
- * A Registry provides a means of registering container (or factory/builder) entries.
+ * A service-registry provides a means of registering a list of entries defined by a service-provider.
  *
- * A container (or factory/builder) implementation may implement this interface, enabling
- * the container/factory/builder to act as a service registry, effectively *importing* any
- * container entries defined by an external provider.
+ * A container (or container-factory) implementation may implement this interface, enabling it to act
+ * as a service-registry, effectively *importing* the entries defined by an external provider.
  */
 interface ServiceRegistryInterface
 {
     /**
-     * Registers an entry by providing a callback (to defer the resolution of that entry.)
+     * Register a given provider with this service-registry.
      *
-     * A valid resolver function has zero arguments and returns an entry value of any type.
+     * The service-registry will query the list of entry identifiers exported by the given provider,
+     * and internally register these entries. (Note that mutable containers must be fully populated
+     * prior to registration - that is, the list of entries must be complete when registered.)
      *
-     * @param string   $id       Identifier of the entry to register
-     * @param callable $resolver A function that resolves and returns the value/component
+     * The service-registry may obtain the container exposed by the given provider at a later time,
+     * e.g. when any of the entries listed by that provider are required.
+     *
+     * @param ServiceProviderInterface $provider
      */
-    public function register($id, callable $resolver);
+    public function registerProvider(ServiceProviderInterface $provider);
 }
