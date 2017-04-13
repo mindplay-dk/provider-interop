@@ -4,8 +4,7 @@ This project provides a means of integrating
 [PSR-11 containers](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md)
 at the provider-level.
 
-**STATUS:** the namespace/interface/method-names are still subject to change, but the interface/method
-signatures are unlikely to change.
+**STATUS:** this is completely experimental and exploratory work - everything is subject to change!
 
 ### Comparison with [`container-interop/service-provider`](https://github.com/container-interop/service-provider) 
 
